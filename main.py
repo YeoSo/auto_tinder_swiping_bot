@@ -1,11 +1,12 @@
 from selenium import webdriver
+from selenium.common import ElementClickInterceptedException, NoSuchElementException
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from time import sleep
 
 # Facebook login email and password
-fb_email = "Your_fb_email"
-fb_pw = "Your_fb_password"
+fb_email = "your fb email"
+fb_pw = "your fb pw"
 
 # Keep Chrome browser opens
 chrome_options = webdriver.ChromeOptions()
@@ -60,17 +61,32 @@ sleep(1)
 cookie_button = driver.find_element(By.XPATH, '//*[@id="q1887506695"]/div/div[2]/div/div/div[1]/div[2]/button')
 cookie_button.click()
 
-sleep(2)
-# Like button click
-like_button = driver.find_element(By.XPATH, '//*[@id="q1887506695"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[3]/div/div[4]/button')
-like_button.click()
+# Delays enough until you'll be able to click like button
+sleep(5)
 
-# back_to_tinder_button = driver.find_element(By.XPATH, '//*[@id="q-2077089400"]/main/div/div[1]/div/div[3]/button')
-# for i in range(100):
-#
-#     sleep(1)
-#
-#     try:
-#         pass
+for i in range(100):
+
+    # adding a delay between likes
+    sleep(1)
+
+    try:
+        # Like button click
+        like_button = driver.find_element(By.XPATH,
+                                          '//*[@id="q1887506695"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[3]/div/div[4]/button')
+        like_button.click()
+
+    # After get matched, click go back to the swipe mode again
+    except ElementClickInterceptedException:
+        try:
+            back_to_tinder_button = driver.find_element(By.XPATH,
+                                                        '//*[@id="q-2077089400"]/main/div/div[1]/div/div[3]/button')
+            back_to_tinder_button.click()
+        # Catches the cases when the "like" button hasn't yet loaded
+        except NoSuchElementException:
+            sleep(2)
+
+driver.quit()
+
+
 
 
