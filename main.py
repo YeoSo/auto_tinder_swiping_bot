@@ -66,14 +66,10 @@ sleep(5)
 
 for i in range(100):
 
-    # adding a delay between likes
-    sleep(1)
-
+    # Arrow right key to swipe right
     try:
-        # Like button click
-        like_button = driver.find_element(By.XPATH,
-                                          '//*[@id="q1887506695"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[3]/div/div[4]/button')
-        like_button.click()
+        driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_RIGHT)
+        sleep(2)
 
     # After get matched, click go back to the swipe mode again
     except ElementClickInterceptedException:
