@@ -5,8 +5,8 @@ from selenium.webdriver.common.by import By
 from time import sleep
 
 # Facebook login email and password
-fb_email = "your fb email"
-fb_pw = "your fb pw"
+fb_email = "your email"
+fb_pw = "your pw"
 
 # Keep Chrome browser opens
 chrome_options = webdriver.ChromeOptions()
